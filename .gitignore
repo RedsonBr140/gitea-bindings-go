@@ -20,3 +20,5 @@ main
 
 # Go workspace file
 go.work
+# Env files
+**.env
