@@ -1,0 +1,4 @@
+codeberg.org/redson/gitea-bindings-go v0.0.0-20220729090230-ccb514a29c99 h1:9mhYvV6A9XVbF7XENMbmuv/Z5ti2j01rwXAiBf7NVQE=
+codeberg.org/redson/gitea-bindings-go v0.0.0-20220729090230-ccb514a29c99/go.mod h1:SUYB5NR4tkHbu88vQt5fx2ENFb9B5AfVpf1BQE+fcD4=
+github.com/joho/godotenv v1.4.0 h1:3l4+N6zfMWnkbPEXKng2o2/MR5mSwTrBih4ZEkkz1lg=
+github.com/joho/godotenv v1.4.0/go.mod h1:f4LDr5Voq0i2e/R5DDNOoa2zzDfwtkZa6DnEwAbqwq4=
