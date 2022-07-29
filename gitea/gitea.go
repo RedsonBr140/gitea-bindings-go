@@ -15,6 +15,7 @@ type Client struct {
 	base         *url.URL
 	client       *http.Client
 	userAgent    string
+	token        string
 	common       service
 	Repositories *RepoService
 	Users        *UsersService
@@ -23,20 +24,17 @@ type Client struct {
 type ClientOptions struct {
 	BaseURL   *url.URL
 	UserAgent string
+	Token     string
 }
 
 type service struct {
 	client *Client
 }
 
-// NewClient returns a new Gitea API client. If a nil httpClient is
+// NewClient returns a new Gitea API client.
 // provided, a new http.Client will be used. To use API methods which require
-// authentication, provide an http.Client that will perform the authentication
-// for you (such as that provided by the golang.org/x/oauth2 library).
-func NewClient(httpClient *http.Client, opts *ClientOptions) *Client {
-	if httpClient == nil {
-		httpClient = http.DefaultClient
-	}
+// authentication, provide an opts.token that will perform the authentication.
+func NewClient(opts *ClientOptions) *Client {
 	baseURL, _ := url.Parse(defaultBaseURL)
 	c := &Client{base: baseURL, client: http.DefaultClient, userAgent: userAgent}
 	c.common.client = c
@@ -51,19 +49,33 @@ func NewClient(httpClient *http.Client, opts *ClientOptions) *Client {
 		if opts.UserAgent != "" {
 			c.userAgent = opts.UserAgent
 		}
+		if opts.Token != "" {
+			c.token = opts.Token
+		}
 	}
 	return c
 }
 
 func (c *Client) getReq(urlStr string) ([]byte, error) {
-	resp, err := http.Get(c.base.String() + urlStr)
+	req, err := http.NewRequest("GET", c.base.String()+urlStr, nil)
 	if err != nil {
 		return nil, err
 	}
+
+	if c.token != "" {
+		req.Header.Set("Authorization", "token "+c.token)
+	}
+
+	resp, err := c.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
 	responseData, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
+
 	defer resp.Body.Close()
 	return responseData, nil
 }
