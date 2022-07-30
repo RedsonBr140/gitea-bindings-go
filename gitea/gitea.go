@@ -1,7 +1,7 @@
 package gitea
 
 import (
-	"errors"
+	"bytes"
 	"io"
 	"net/http"
 	"net/url"
@@ -57,8 +57,8 @@ func NewClient(opts *ClientOptions) *Client {
 	return c
 }
 
-func (c *Client) getReq(urlStr string) ([]byte, error) {
-	req, err := http.NewRequest("GET", c.base.String()+urlStr, nil)
+func (c *Client) newRequest(method string, urlStr string, reqBody []byte) ([]byte, error) {
+	req, err := http.NewRequest(method, c.base.String()+urlStr, bytes.NewBuffer(reqBody))
 	if err != nil {
 		return nil, err
 	}
@@ -67,19 +67,20 @@ func (c *Client) getReq(urlStr string) ([]byte, error) {
 		req.Header.Set("Authorization", "token "+c.token)
 	}
 
+	if method == "POST" {
+		req.Header.Set("Content-Type", "application/json")
+	}
+
 	resp, err := c.client.Do(req)
 	if err != nil {
 		return nil, err
 	}
-	if resp.StatusCode != http.StatusOK {
-		return nil, errors.New(resp.Status)
-	}
+	defer resp.Body.Close()
 
 	responseData, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
 	return responseData, nil
 }

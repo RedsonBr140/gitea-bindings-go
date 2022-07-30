@@ -14,7 +14,7 @@ func (s *UsersService) ListFollowers(user string) ([]*User, error) {
 		u = "user/followers"
 	}
 	var users []*User
-	req, err := s.client.getReq(u)
+	req, err := s.client.newRequest("GET", u, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -33,7 +33,7 @@ func (s *UsersService) ListFollowing(user string) ([]*User, error) {
 		u = "user/following"
 	}
 	var users []*User
-	req, err := s.client.getReq(u)
+	req, err := s.client.newRequest("GET", u, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -41,7 +41,7 @@ func (s *UsersService) Get(user string) (*User, error) {
 		u = "user"
 	}
 
-	resp, err := s.client.getReq(u)
+	resp, err := s.client.newRequest("GET", u, nil)
 	if err != nil {
 		return nil, err
 	}

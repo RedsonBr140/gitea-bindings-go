@@ -73,11 +73,39 @@ func (s *RepoService) Get(repoowner string, reponame string) (*Repo, error) {
 		return nil, errors.New("repoowner or reponame missing.")
 	}
 
-	resp, err := s.client.getReq(r)
+	resp, err := s.client.newRequest("GET", r, nil)
 	if err != nil {
 		return nil, err
 	}
 
 	json.Unmarshal(resp, &RepoObj)
 	return &RepoObj, nil
+}
+
+type CreateRepositoryOpts struct {
+	AutoInit      bool
+	DefaultBranch string
+	Description   string
+	Gitignores    string
+	IssueLabels   string
+	License       string
+	Name          string
+	Private       bool
+	Readme        string
+	Template      bool
+	TrustModel    string
+}
+
+func (s *RepoService) CreateRepository(opts *CreateRepositoryOpts) ([]byte, error) {
+	reqBody, err := json.Marshal(opts)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := s.client.newRequest("POST", "user/repos", reqBody)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, nil
 }
