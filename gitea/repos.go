@@ -73,7 +73,7 @@ func (s *RepoService) Get(repoowner string, reponame string) (*Repo, error) {
 		return nil, errors.New("repoowner or reponame missing.")
 	}
 
-	resp, err := s.client.getReq(r)
+	resp, err := s.client.newRequest("GET", r, nil)
 	if err != nil {
 		return nil, err
 	}
