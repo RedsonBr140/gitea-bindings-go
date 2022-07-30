@@ -2,6 +2,7 @@ package gitea
 
 import (
 	"bytes"
+	"errors"
 	"io"
 	"net/http"
 	"net/url"
@@ -67,11 +68,12 @@ func (c *Client) newRequest(method string, urlStr string, reqBody []byte) ([]byt
 		req.Header.Set("Authorization", "token "+c.token)
 	}
 
-	if method == "POST" {
-		req.Header.Set("Content-Type", "application/json")
-	}
+	req.Header.Set("Content-Type", "application/json")
 
 	resp, err := c.client.Do(req)
+	if method == "POST" && resp.StatusCode != 201 {
+		return nil, errors.New(resp.Status)
+	}
 	if err != nil {
 		return nil, err
 	}
