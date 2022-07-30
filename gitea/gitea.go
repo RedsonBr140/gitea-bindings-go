@@ -1,6 +1,7 @@
 package gitea
 
 import (
+	"bytes"
 	"errors"
 	"io"
 	"net/http"
@@ -82,4 +83,25 @@ func (c *Client) getReq(urlStr string) ([]byte, error) {
 
 	defer resp.Body.Close()
 	return responseData, nil
+}
+
+func (c *Client) postReq(urlStr string, reqBody []byte) error {
+	req, err := http.NewRequest("POST", c.base.String()+urlStr, bytes.NewBuffer(reqBody))
+	if err != nil {
+		return err
+	}
+
+	if c.token == "" {
+		return errors.New("The access token is missing...")
+	}
+
+	req.Header.Set("Authorization", "token "+c.token)
+
+	resp, err := c.client.Do(req)
+	if err != nil {
+		return err
+	}
+
+	defer resp.Body.Close()
+	return nil
 }
