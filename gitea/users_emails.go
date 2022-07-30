@@ -8,17 +8,17 @@ type UserEmail struct {
 	IsPrimary  bool   `json:"primary,omitempty"`
 }
 
+// List the authenticated user's email addresses
 func (s *UsersService) ListEmails() ([]*UserEmail, error) {
-  u := "user/emails"
-  var mailsArray []*UserEmail
+	u := "user/emails"
+	var mailsArray []*UserEmail
 
-  req, err := s.client.getReq(u)
-  if err != nil {
-    return nil, err
-  }
+	req, err := s.client.getReq(u)
+	if err != nil {
+		return nil, err
+	}
 
-  json.Unmarshal(req, &mailsArray)
+	json.Unmarshal(req, &mailsArray)
 
-  return mailsArray, nil
+	return mailsArray, nil
 }
-

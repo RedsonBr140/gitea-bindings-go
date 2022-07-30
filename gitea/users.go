@@ -31,6 +31,7 @@ type User struct {
 	// TODO: Finish https://codeberg.org/api/v1/users/redson
 }
 
+// Get information about the authenticated (or specified) user
 func (s *UsersService) Get(user string) (*User, error) {
 	var userObj User
 	var u string

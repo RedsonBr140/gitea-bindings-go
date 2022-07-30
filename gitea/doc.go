@@ -6,7 +6,7 @@ Usage
 Construct a new Client, and then you can use the services
 to access different parts of the API. For example:
     client := gitea.NewClient(nil)
-    
+
     // get info about a repository
     repo, err := client.Repositories.Get("redson", "gitea-bindings-go")
 

@@ -63,6 +63,7 @@ type RepoPerms struct {
 
 type RepoService service
 
+// Get information about the repository
 func (s *RepoService) Get(repoowner string, reponame string) (*Repo, error) {
 	var RepoObj Repo
 	var r string
