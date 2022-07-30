@@ -68,6 +68,10 @@ func (c *Client) newRequest(method string, urlStr string, reqBody []byte) ([]byt
 		req.Header.Set("Authorization", "token "+c.token)
 	}
 
+	if c.userAgent != "" {
+		req.Header.Set("User-Agent", c.userAgent)
+	}
+
 	req.Header.Set("Content-Type", "application/json")
 
 	resp, err := c.client.Do(req)
