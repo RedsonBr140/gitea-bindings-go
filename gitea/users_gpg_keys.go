@@ -37,7 +37,7 @@ func (s *UsersService) ListGPGKeys(user string) ([]*GPGKey, error) {
 		u = "user/gpg_keys"
 	}
 
-	req, err := s.client.getReq(u)
+	req, err := s.client.newRequest("GET", u, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -53,7 +53,7 @@ func (s *UsersService) ListGPGKeys(user string) ([]*GPGKey, error) {
 func (s *UsersService) GetGPGKey(id int64) (*GPGKey, error) {
 	u := fmt.Sprintf("user/gpg_keys/%v", id)
 
-	req, err := s.client.getReq(u)
+	req, err := s.client.newRequest("GET", u, nil)
 	if err != nil {
 		return nil, err
 	}

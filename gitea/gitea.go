@@ -84,7 +84,3 @@ func (c *Client) newRequest(method string, urlStr string, reqBody []byte) ([]byt
 
 	return responseData, nil
 }
-
-func (c *Client) getReq(urlStr string) ([]byte, error) {
-	return c.newRequest("GET", urlStr, nil)
-}

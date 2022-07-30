@@ -13,7 +13,7 @@ func (s *UsersService) ListEmails() ([]*UserEmail, error) {
 	u := "user/emails"
 	var mailsArray []*UserEmail
 
-	req, err := s.client.getReq(u)
+	req, err := s.client.newRequest("GET", u, nil)
 	if err != nil {
 		return nil, err
 	}
