@@ -79,7 +79,8 @@ func (s *UsersService) ListRepos(user string) ([]*Repo, error) {
 }
 
 // Create a new repository for the authenticated user.
-func (s *RepoService) CreateRepository(opts *CreateRepositoryOpts) ([]byte, error) {
+func (s *RepoService) CreateRepository(opts *CreateRepositoryOpts) (*Repo, error) {
+	repoCreated := &Repo{}
 	if opts == nil {
 		return nil, errors.New("opts can't be nil")
 	}
@@ -93,5 +94,7 @@ func (s *RepoService) CreateRepository(opts *CreateRepositoryOpts) ([]byte, erro
 		return nil, err
 	}
 
-	return resp, nil
+	json.Unmarshal(resp, &repoCreated)
+
+	return repoCreated, nil
 }
