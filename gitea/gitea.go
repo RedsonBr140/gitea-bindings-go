@@ -1,6 +1,7 @@
 package gitea
 
 import (
+	"errors"
 	"io"
 	"net/http"
 	"net/url"
@@ -33,7 +34,7 @@ type service struct {
 
 // NewClient returns a new Gitea API client.
 // provided, a new http.Client will be used. To use API methods which require
-// authentication, provide an opts.token that will perform the authentication.
+// authentication, provide an ClientOptions.token that will perform the authentication.
 func NewClient(opts *ClientOptions) *Client {
 	baseURL, _ := url.Parse(defaultBaseURL)
 	c := &Client{base: baseURL, client: http.DefaultClient, userAgent: userAgent}
@@ -69,6 +70,9 @@ func (c *Client) getReq(urlStr string) ([]byte, error) {
 	resp, err := c.client.Do(req)
 	if err != nil {
 		return nil, err
+	}
+	if resp.StatusCode != http.StatusOK {
+		return nil, errors.New(resp.Status)
 	}
 
 	responseData, err := io.ReadAll(resp.Body)
