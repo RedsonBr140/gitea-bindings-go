@@ -3,17 +3,17 @@ gitea-bindings-go is a Go client library for accessing the [Gitea API v1](https:
 
 ## Installation
 ```
-go get https://codeberg.org/redson/gitea-bindings-go/gitea
+go get codeberg.org/redson/gitea-bindings-go/gitea
 ```
 You can also import the package
 ```go
-import "https://codeberg.org/redson/gitea-bindings-go/gitea"
+import "codeberg.org/redson/gitea-bindings-go/gitea"
 ```
 and run `go get` without parameters.
 
 ## Usage
 ```go
-import "https://codeberg.org/redson/gitea-bindings-go/gitea"
+import "codeberg.org/redson/gitea-bindings-go/gitea"
 ```
 
 Construct a new Client, and then you can use the services
@@ -48,3 +48,4 @@ For more info, see the [examples](https://codeberg.org/redson/gitea-bindings-go/
 
 ## License
 This library is distributed under MIT License found in [LICENSE](https://codeberg.org/redson/gitea-bindings-go/src/branch/main/LICENSE) file.
+

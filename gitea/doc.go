@@ -29,4 +29,4 @@ but now what you provide is a token, for example:
 For more info, see the examples at https://codeberg.org/redson/gitea-bindings-go/src/branch/main/example.
 
 */
-package gitea // import "https://codeberg.org/redson/gitea-bindings-go/gitea"
+package gitea // import "codeberg.org/redson/gitea-bindings-go/gitea"
