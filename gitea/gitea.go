@@ -2,6 +2,7 @@ package gitea
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"io"
 	"net/http"
@@ -31,6 +32,10 @@ type ClientOptions struct {
 
 type service struct {
 	client *Client
+}
+
+type PostError struct {
+	Message string `json:"message"`
 }
 
 // NewClient returns a new Gitea API client.
@@ -72,18 +77,21 @@ func (c *Client) newRequest(method string, urlStr string, reqBody []byte) ([]byt
 	req.Header.Set("Content-Type", "application/json")
 
 	resp, err := c.client.Do(req)
-	if method == "POST" && resp.StatusCode != 201 {
-		return nil, errors.New(resp.Status)
-	}
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
 
 	responseData, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
+
+	if method == "POST" && resp.StatusCode != 201 {
+		var postError PostError
+		json.Unmarshal(responseData, &postError)
+		return nil, errors.New(postError.Message)
+	}
+	defer resp.Body.Close()
 
 	return responseData, nil
 }
