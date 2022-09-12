@@ -6,6 +6,10 @@ import (
 	"fmt"
 )
 
+var (
+	ErrRepoInfoMissing error = errors.New("repo owner or repo name is missing.")
+)
+
 type Repo struct {
 	Name              string `json:"name,omitempty"`
 	FullName          string `json:"full_name,omitempty"`
@@ -64,14 +68,13 @@ type RepoPerms struct {
 type RepoService service
 
 // Get information about the repository
-func (s *RepoService) Get(repoowner string, reponame string) (*Repo, error) {
+func (s *RepoService) Get(repoOwner string, repoName string) (*Repo, error) {
 	var RepoObj Repo
 	var r string
-	if repoowner != "" && reponame != "" {
-		r = fmt.Sprintf("repos/%v/%v", repoowner, reponame)
-	} else {
-		return nil, errors.New("repoowner or reponame missing.")
+	if repoOwner == "" || repoName == "" {
+		return nil, ErrRepoInfoMissing
 	}
+	r = fmt.Sprintf("repos/%v/%v", repoOwner, repoName)
 
 	resp, err := s.client.newRequest("GET", r, nil)
 	if err != nil {
@@ -80,4 +83,18 @@ func (s *RepoService) Get(repoowner string, reponame string) (*Repo, error) {
 
 	json.Unmarshal(resp, &RepoObj)
 	return &RepoObj, nil
+}
+
+func (s *RepoService) DeleteRepository(repoOwner string, repoName string) error {
+	if repoName == "" {
+		return errors.New("You need to specify a repository to delete")
+	}
+	u := fmt.Sprintf("repos/%v/%v", repoOwner, repoName)
+
+	_, err := s.client.newRequest("DELETE", u, nil)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
