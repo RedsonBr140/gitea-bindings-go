@@ -81,17 +81,32 @@ func (c *Client) newRequest(method string, urlStr string, reqBody []byte) ([]byt
 		return nil, err
 	}
 
+	defer resp.Body.Close()
+
 	responseData, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
 
-	if method == "POST" && resp.StatusCode != 201 {
-		var postError PostError
-		json.Unmarshal(responseData, &postError)
-		return nil, errors.New(postError.Message)
-	}
-	defer resp.Body.Close()
+	if method == "POST" {
+		accepted := []int{200, 201}
+		StatusIsOK := contains(accepted, resp.StatusCode)
 
+		if !StatusIsOK {
+			var postError PostError
+			json.Unmarshal(responseData, &postError)
+			return nil, errors.New(postError.Message)
+
+		}
+	}
 	return responseData, nil
+}
+
+func contains(i []int, code int) bool {
+	for _, v := range i {
+		if v == code {
+			return true
+		}
+	}
+	return false
 }
