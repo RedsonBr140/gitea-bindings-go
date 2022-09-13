@@ -43,7 +43,7 @@ client := gitea.NewClient(&gitea.ClientOptions{
 })
 ```
 
-For more info, see the [examples](https://codeberg.org/redson/gitea-bindings-go/src/branch/main/example).
+For more info, see the [examples](https://codeberg.org/redson/gitea-bindings-go/src/branch/main/examples).
 
 
 ## License
