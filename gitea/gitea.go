@@ -23,6 +23,7 @@ type Client struct {
 	Repositories  *RepoService
 	Users         *UsersService
 	Miscellaneous *MiscellaneousService
+	Settings      *SettingsService
 }
 
 type ClientOptions struct {
@@ -50,6 +51,7 @@ func NewClient(opts *ClientOptions) *Client {
 	c.Repositories = (*RepoService)(&c.common)
 	c.Users = (*UsersService)(&c.common)
 	c.Miscellaneous = (*MiscellaneousService)(&c.common)
+	c.Settings = (*SettingsService)(&c.common)
 
 	if opts != nil {
 		if opts.BaseURL != nil {

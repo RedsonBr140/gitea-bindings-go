@@ -317,13 +317,13 @@ List of API Endpoints(v1.17.1+69-gb69472d) and the status
 </details>
 
 <details>
-<summary><input disabled type="checkbox">Settings</input></summary>
+<summary><input checked disabled type="checkbox">Settings</input></summary>
 
  - **GET**
-   - [ ] /settings/api
-   - [ ] /settings/attachment
-   - [ ] /settings/repository
-   - [ ] /settings/ui
+   - [X] /settings/api
+   - [X] /settings/attachment
+   - [X] /settings/repository
+   - [X] /settings/ui
 
 </details>
 
