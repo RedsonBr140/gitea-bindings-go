@@ -17,6 +17,8 @@ type UserSettings struct {
 	HideActivity  bool   `json:"hide_activity,omitempty"`
 }
 
+// GetSettings Get the authenticated user settings.
+// If a error occurs, it returns nil and the error.
 func (s *UsersService) GetSettings() (*UserSettings, error) {
 	var SettingsObj UserSettings
 	req, err := s.client.newRequest("GET", "user/settings", nil)
@@ -27,6 +29,8 @@ func (s *UsersService) GetSettings() (*UserSettings, error) {
 	return &SettingsObj, nil
 }
 
+// EditSettings update the authenticated user settings.
+// If a error occurs, it returns nil and the error.
 func (s *UsersService) EditSettings(opts *UserSettings) (*UserSettings, error) {
 	var usersettingsObj UserSettings
 	if opts == nil {
