@@ -32,13 +32,13 @@ List of API Endpoints(v1.17.1+69-gb69472d) and the status
  - **GET**
    - [ ] /nodeinfo
    - [ ] /signing-key.gpg
-   - [ ] /version
+   - [X] /version
 
 
 
  - **POST**
-   - [ ] /markdown
-   - [ ] /markdown/raw
+   - [X] /markdown
+   - [X] /markdown/raw
 
 </details>
 
