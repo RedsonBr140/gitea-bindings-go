@@ -344,7 +344,7 @@ List of API Endpoints(v1.17.1+69-gb69472d) and the status
    - [X] /user/keys
    - [X] /user/keys/{id}
    - [X] /user/repos
-   - [ ] /user/settings
+   - [X] /user/settings
    - [ ] /user/starred
    - [ ] /user/starred/{owner}/{repo}
    - [ ] /user/stopwatches
@@ -377,7 +377,7 @@ List of API Endpoints(v1.17.1+69-gb69472d) and the status
 
  - **PATCH**
    - [ ] /user/applications/oauth2/{id}
-   - [ ] /user/settings
+   - [X] /user/settings
  - **PUT**
    - [ ] /user/following/{username}
    - [ ] /user/starred/{owner}/{repo}
