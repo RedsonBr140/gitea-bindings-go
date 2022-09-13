@@ -90,7 +90,7 @@ func (c *Client) newRequest(method string, urlStr string, reqBody []byte) ([]byt
 		return nil, err
 	}
 
-	if method == "POST" {
+	if method == "POST" || method == "PATCH" {
 		accepted := []int{200, 201}
 		StatusIsOK := contains(accepted, resp.StatusCode)
 
