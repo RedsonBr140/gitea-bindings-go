@@ -184,7 +184,7 @@ List of API Endpoints(v1.17.1+69-gb69472d) and the status
 <summary><input disabled type="checkbox">Repository</input></summary>
 
 - **GET**
-   - [ ] /repos/search
+   - [X] /repos/search
    - [X] /repos/{owner}/{repo}
    - [ ] /repos/{owner}/{repo}/archive/{archive}
    - [ ] /repos/{owner}/{repo}/assignees
@@ -351,7 +351,7 @@ List of API Endpoints(v1.17.1+69-gb69472d) and the status
    - [ ] /user/subscriptions
    - [ ] /user/teams
    - [ ] /user/times
-   - [ ] /users/search
+   - [X] /users/search
    - [X] /users/{username}
    - [X] /users/{username}/followers
    - [X] /users/{username}/following
