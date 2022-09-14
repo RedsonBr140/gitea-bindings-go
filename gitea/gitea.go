@@ -4,9 +4,12 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"net/http"
 	"net/url"
+	"reflect"
+	"strings"
 )
 
 const (
@@ -104,6 +107,38 @@ func (c *Client) newRequest(method string, urlStr string, reqBody []byte) ([]byt
 		}
 	}
 	return responseData, nil
+}
+
+// Get requests doesn't have a Body, it's the URL itself.
+// So i'm parsing the opts object and putting on the link.
+func (c *Client) parseQuery(url string, obj any) string {
+
+	var (
+		queries []string
+		fields  []string
+	)
+
+	if url[len(url)-1:] != "?" {
+		url += "?"
+	}
+
+	FieldValue := reflect.ValueOf(obj)
+	st := reflect.TypeOf(obj)
+	numFields := st.NumField()
+
+	for i := 0; i < numFields; i++ {
+		querie := strings.Split(st.Field(i).Tag.Get("json"), ",")
+		queries = append(queries, querie[0])
+		fields = append(fields, st.Field(i).Name)
+	}
+	for i, v := range queries {
+		if FieldValue.FieldByName(fields[i]).String() == "" {
+			continue
+		}
+
+		url += fmt.Sprintf("%v=%v&", v, FieldValue.FieldByName(fields[i]))
+	}
+	return url
 }
 
 func contains(i []int, code int) bool {
