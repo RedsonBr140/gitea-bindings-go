@@ -115,6 +115,7 @@ List of API Endpoints(v1.17.1+69-gb69472d) and the status
 
 <details>
 <summary><input disabled type="checkbox">Package</input></summary>
+
  - **GET**
    - [ ] /packages/{owner}
    - [ ] /packages/{owner}/{type}/{name}/{version}
