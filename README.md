@@ -1,6 +1,7 @@
 # gitea-bindings-go
 gitea-bindings-go is a Go client library for accessing the [Gitea API v1](https://try.gitea.io/api/swagger).
 
+[![Tests](https://github.com/RedsonBr140/gitea-bindings-go/actions/workflows/tests.yml/badge.svg)](https://github.com/RedsonBr140/gitea-bindings-go/actions/workflows/tests.yml)
 ## Installation
 ```
 go get codeberg.org/redson/gitea-bindings-go/gitea
